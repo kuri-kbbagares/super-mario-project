@@ -2,6 +2,7 @@
 push = require 'lib/push'
 Class = require 'lib/class'
 
+require 'src/Constants'
 require 'src/StateMachine'
 require 'src/Util'
 

@@ -1,26 +1,5 @@
 require 'src/Dependencies'
 
-WINDOW_WIDTH = 1280
-WINDOW_HEIGHT = 720
-
-VIRTUAL_WIDTH = 432
-VIRTUAL_HEIGHT = 243
-
-TILE_SIZE = 16
-
-CHARACTER_WIDTH = 16
-CHARACTER_HEIGHT = 20
-
-CHARACTER_MOVE_SPEED = 50
-JUMP_VELOCITY = -200
-
-GRAVITY = 7
-
-CAMERA_SCROLL_SPEED = 50
-
-SKY = 2
-GROUND = 1
-
 function love.load()
     math.randomseed(os.time())
 
@@ -73,6 +52,8 @@ end
 
 function love.update(dt)
     gStateMachine:update(dt)
+
+    love.keyboard.keypressed = {}
 end
 
 function love.draw()
