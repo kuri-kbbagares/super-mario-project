@@ -4,13 +4,11 @@ function love.load()
     math.randomseed(os.time())
 
     tiles = {}
-
-    tilesheet = love.graphics.newImage('graphics/tiles.png')
-    quads = GenerateQuads(tilesheet, TILE_SIZE, TILE_SIZE)
-
-
+  
     characterX = VIRTUAL_WIDTH / 2 - (CHARACTER_WIDTH / 2)
     characterY = ((11 - 1) * TILE_SIZE) - CHARACTER_HEIGHT
+
+    characterDY = 0
 
     cameraScroll = 0
 
@@ -37,6 +35,16 @@ function love.load()
         vsync = true
     })
 
+    gTextures = {
+        ['tiles'] = love.graphics.newImage('graphics/tiles.png'),
+        ['toppers'] = love.graphics.newImage('graphics/tile_tops.png')
+    }
+
+    gFrames = {
+        ['tiles'] = GenerateQuads(gTextures['tiles'], TILE_SIZE, TILE_SIZE),
+        ['toppers'] = GenerateQuads(gTextures['toppers'], TILE_SIZE, TILE_SIZE)
+    }
+
     gStateMachine = StateMachine {
         ['play'] = function() return PlayState() end
     }
@@ -47,6 +55,10 @@ end
 function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
+    end
+
+    if key == 'space' and characterDY == 0 then
+        characterDY = JUMP_VELOCITY
     end
 end
 
@@ -63,3 +75,4 @@ function love.draw()
 
     push:apply('end')
 end
+
