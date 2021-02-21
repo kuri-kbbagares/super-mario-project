@@ -11,13 +11,23 @@ function Tile:init(x, y, id, topper)
     self.topper = topper
 end
 
+function Tile:collidable(target)
+    for k, v in pairs(COLLIDABLE_TILES) do
+        if v == self.id then
+            return true
+        end
+    end
+
+    return false
+end
+
 function Tile:render()
     love.graphics.draw(gTextures['tiles'], gFrames['tiles'][self.id],
-        (self.x + 3) * TILE_SIZE, (self.y + 3) * TILE_SIZE)
+        (self.x) * TILE_SIZE, (self.y) * TILE_SIZE)
     
     -- tile top layer for graphical variety
     if self.topper then
         love.graphics.draw(gTextures['toppers'], gFrames['toppers'][self.id],
-            (self.x + 3) * TILE_SIZE, (self.y + 3) * TILE_SIZE)
+            (self.x) * TILE_SIZE, (self.y) * TILE_SIZE)
     end
 end
