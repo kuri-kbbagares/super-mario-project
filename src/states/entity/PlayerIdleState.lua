@@ -12,14 +12,14 @@ function PlayerIdleState:init(player)
 end
 
 function PlayerIdleState:update(dt)
-    if love.keyboard.isDown('left') or love.keyboard.isDown('right') or love.keyboard.isDown('a') or love.keyboard.isDown('d') then
+    if love.keyboard.isDown('left') or love.keyboard.isDown('right') then
         self.player:changeState('walking')
     end
 
     if love.keyboard.wasPressed('space') then
         self.player:changeState('jump')
-        
     end
+
     -- check if we've collided with any entities and die if so
     for k, entity in pairs(self.player.level.entities) do
         if entity:collides(self.player) then

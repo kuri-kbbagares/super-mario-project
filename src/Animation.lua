@@ -8,6 +8,7 @@ function Animation:init(def)
 end
 
 function Animation:update(dt)
+
     if #self.frames > 1 then
         self.timer = self.timer + dt
 

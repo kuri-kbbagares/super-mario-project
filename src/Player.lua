@@ -2,7 +2,6 @@ Player = Class{__includes = Entity}
 
 function Player:init(def)
     Entity.init(self, def)
-    self.score = 0
 end
 
 function Player:update(dt)
@@ -29,7 +28,7 @@ function Player:checkLeftCollisions(dt)
 
         -- reset X if new collided object
         if #collidedObjects > 0 then
-            self.x = self.x + PLAYER_WALK_SPEED * dt
+            self.x = self.x - PLAYER_WALK_SPEED * dt
         end
     end
 end

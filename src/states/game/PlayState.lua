@@ -24,49 +24,45 @@ function PlayState:init()
         map = self.tileMap,
         level = self.level
     })
-    
+
     self:spawnEnemies()
+
     self.player:changeState('falling')
 end
 
 function PlayState:update(dt)
-    characterDY = characterDY + GRAVITY
-    characterY = characterY + characterDY * dt
-    
-    if characterY > ((8 - 1) * TILE_SIZE) - CHARACTER_HEIGHT then
-        characterY = ((8 - 1) * TILE_SIZE) - CHARACTER_HEIGHT
-        characterDY = 0
-    end
+    Timer.update(dt)
+
+    self.level:clear()
 
     self.player:update(dt)
-    self.level.update(dt)
+    self.level:update(dt)
 
-    -- constrain player X no matter which state
     if self.player.x <= 0 then
         self.player.x = 0
     elseif self.player.x > TILE_SIZE * self.tileMap.width - self.player.width then
         self.player.x = TILE_SIZE * self.tileMap.width - self.player.width
     end
 
-    cameraScroll = characterX - (VIRTUAL_WIDTH / 2) + (CHARACTER_WIDTH / 2)
-
     self:updateCamera()
 end
 
 function PlayState:render()
     love.graphics.draw(self.background, 0, 0)
+    love.graphics.draw(self.background, 0, (VIRTUAL_HEIGHT * 2) - 34, 0, 1, -1)
 
     love.graphics.translate(-math.floor(self.camX), -math.floor(self.camY))
 
     self.level:render()
 
     self.player:render()
+
 end
 
 function PlayState:updateCamera()
     self.camX = math.max(0,
         math.min(TILE_SIZE * self.tileMap.width - VIRTUAL_WIDTH,
-        characterX - (VIRTUAL_WIDTH / 2 - 8)))
+        self.player.x - (VIRTUAL_WIDTH / 2 - 8)))
 
     self.backgroundX = (self.camX / 3) % 256
 
@@ -74,10 +70,8 @@ function PlayState:updateCamera()
 end
 
 function PlayState:spawnEnemies()
-    -- spawn snails in the level
     for x = 1, self.tileMap.width do
 
-        -- flag for whether there's ground on this column of the level
         local groundFound = false
 
         for y = 1, self.tileMap.height do
@@ -85,11 +79,8 @@ function PlayState:spawnEnemies()
                 if self.tileMap.tiles[y][x].id == TILE_ID_GROUND then
                     groundFound = true
 
-                    -- random chance, 1 in 20
                     if math.random(20) == 1 then
-                        
-                        -- instantiate snail, declaring in advance so we can pass it into state machine
-                        local snail
+
                         snail = Snail {
                             texture = 'slug',
                             x = (x - 1) * TILE_SIZE,

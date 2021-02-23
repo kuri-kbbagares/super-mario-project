@@ -1,20 +1,10 @@
---[[
-    GD50
-    Super Mario Bros. Remake
-
-    -- PlayerFallingState Class --
-
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
-]]
-
 PlayerFallingState = Class{__includes = BaseState}
 
 function PlayerFallingState:init(player, gravity)
     self.player = player
     self.gravity = gravity
     self.animation = Animation {
-        frames = {2},
+        frames = {3},
         interval = 1
     }
     self.player.currentAnimation = self.animation
@@ -82,7 +72,6 @@ function PlayerFallingState:update(dt)
         if entity:collides(self.player) then
             gSounds['kill']:play()
             gSounds['kill2']:play()
-            self.player.score = self.player.score + 100
             table.remove(self.player.level.entities, k)
         end
     end
