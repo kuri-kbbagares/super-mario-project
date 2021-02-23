@@ -1,29 +1,8 @@
---[[
-    GD50
-    Super Mario Bros. Remake
-
-    Author: Colton Ogden
-    cogden@cs50.harvard.edu
-    
-    A classic platformer in the style of Super Mario Bros., using a free
-    art pack. Super Mario Bros. was instrumental in the resurgence of video
-    games in the mid-80s, following the infamous crash shortly after the
-    Atari age of the late 70s. The goal is to navigate various levels from
-    a side perspective, where jumping onto enemies inflicts damage and
-    jumping up into blocks typically breaks them or reveals a powerup.
-
-    Art pack:
-    https://opengameart.org/content/kenney-16x16
-
-    Music:
-    https://freesound.org/people/Sirkoto51/sounds/393818/
-]]
-
 require 'src/Dependencies'
 
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    love.window.setTitle('Super 50 Bros.')
+    love.window.setTitle('Super Frisk Bros.')
 
     math.randomseed(os.time())
     
@@ -37,7 +16,7 @@ function love.load()
         ['start'] = function() return StartState() end,
         ['play'] = function() return PlayState() end
     }
-    gStateMachine:change('play')
+    gStateMachine:change('start')
 
     gSounds['music']:setLooping(true)
     gSounds['music']:setVolume(0.1)

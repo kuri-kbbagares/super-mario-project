@@ -1,9 +1,37 @@
 PlayState = Class{__includes = BaseState}
 
 function PlayState:init()
+    print("PLAYSTATE init")
     self.camX = 0
     self.camY = 0
-    self.level = LevelMaker.generate(100, 10)
+end
+
+function PlayState:update(dt)
+    Timer.update(dt)
+
+    self.level:clear()
+
+    self.player:update(dt)
+    self.level:update(dt)
+
+    if self.player.x <= 0 then
+        self.player.x = 0
+    elseif self.player.x > TILE_SIZE * self.tileMap.width - self.player.width then
+        self.player.x = TILE_SIZE * self.tileMap.width - self.player.width
+    end
+
+    self:updateCamera()
+end
+
+function PlayState:enter(params)
+    if params then
+        levelWidth = LEVEL_WIDTH*params.currentLevel
+    else
+        levelWidth = LEVEL_WIDTH
+    end
+
+
+    self.level = LevelMaker.generate(levelWidth, 10)
     self.tileMap = self.level.tileMap
     self.background = love.graphics.newImage('graphics/backgrounds.png')
     self.backgroundX = 0
@@ -25,29 +53,21 @@ function PlayState:init()
         level = self.level
     })
 
+    if params then
+        self.player.score = params.score
+        self.player.currentLevel = params.currentLevel + 1
+    end
+
+    print(self.player.score)
+    print(self.player.currentLevel)
+
     self:spawnEnemies()
 
     self.player:changeState('falling')
 end
 
-function PlayState:update(dt)
-    Timer.update(dt)
-
-    self.level:clear()
-
-    self.player:update(dt)
-    self.level:update(dt)
-
-    if self.player.x <= 0 then
-        self.player.x = 0
-    elseif self.player.x > TILE_SIZE * self.tileMap.width - self.player.width then
-        self.player.x = TILE_SIZE * self.tileMap.width - self.player.width
-    end
-
-    self:updateCamera()
-end
-
 function PlayState:render()
+    love.graphics.push()
     love.graphics.draw(self.background, 0, 0)
     love.graphics.draw(self.background, 0, (VIRTUAL_HEIGHT * 2) - 34, 0, 1, -1)
 
@@ -56,6 +76,17 @@ function PlayState:render()
     self.level:render()
 
     self.player:render()
+    love.graphics.pop()
+
+    love.graphics.setFont(gFonts['small'])
+    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.print(tostring(self.player.score), 5, 5)
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.print(tostring(self.player.score), 4, 4)
+    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.print("Level - " .. tostring(self.player.currentLevel), 5, VIRTUAL_HEIGHT - 15)
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.print("Level - " .. tostring(self.player.currentLevel), 4, VIRTUAL_HEIGHT - 16)
 
 end
 
@@ -80,7 +111,7 @@ function PlayState:spawnEnemies()
                     groundFound = true
 
                     if math.random(20) == 1 then
-
+                        local snail
                         snail = Snail {
                             texture = 'slug',
                             x = (x - 1) * TILE_SIZE,

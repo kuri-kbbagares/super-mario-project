@@ -28,6 +28,26 @@ COLLIDABLE_TILES = {
 
 JUMP_BLOCKS = {}
 
+BUSH_IDS = {
+    1, 2, 5, 6
+}
+
+CRATES = {
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+}
+
+GEMS = {
+    1, 2, 3, 4, 5, 6, 7, 8
+}
+
 for i = 1, 2 do
     table.insert(JUMP_BLOCKS, i)
 end
+
+LOCK_VARIANTS = {}
+
+for i = 1, 4 do
+    table.insert(LOCK_VARIANTS, i)
+end
+
+LEVEL_WIDTH = 25

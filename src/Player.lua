@@ -2,6 +2,8 @@ Player = Class{__includes = Entity}
 
 function Player:init(def)
     Entity.init(self, def)
+    self.score = 0
+    self.currentLevel = 1
 end
 
 function Player:update(dt)
@@ -62,8 +64,15 @@ function Player:checkObjectCollisions()
             if object.solid then
                 table.insert(collidedObjects, object)
             elseif object.consumable then
-                object.onConsume(self)
+                levelCompleted = object.onConsume(self)
                 table.remove(self.level.objects, k)
+
+                if levelCompleted then
+                    gStateMachine:change('play', {
+                        currentLevel = self.currentLevel,
+                        score = self.score
+                    })
+                end
             end
         end
     end

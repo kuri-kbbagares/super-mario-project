@@ -1,5 +1,3 @@
-
-
 -- on lib folder
 Class = require 'lib/class'
 push = require 'lib/push'
@@ -40,7 +38,12 @@ gTextures = {
     ['toppers'] = love.graphics.newImage('graphics/tile_tops.png'),
     ['character'] = love.graphics.newImage('graphics/character.png'),
     ['slug'] = love.graphics.newImage('graphics/slugs.png'),
-    ['jump-blocks'] = love.graphics.newImage('graphics/jump_blocks.png')
+    ['jump-blocks'] = love.graphics.newImage('graphics/jump_blocks.png'),
+    ['keys-and-locks'] = love.graphics.newImage('graphics/keys_and_locks.png'),
+    ['gems'] = love.graphics.newImage('graphics/gems.png'),
+    ['bushes'] = love.graphics.newImage('graphics/bushes_and_cacti.png'),
+    ['flag-rod'] = love.graphics.newImage('graphics/flags.png'),
+    ['flags'] = love.graphics.newImage('graphics/flags.png')
 }
 
 gFrames = {
@@ -48,7 +51,12 @@ gFrames = {
     ['toppers'] = GenerateQuads(gTextures['toppers'], TILE_SIZE, TILE_SIZE),
     ['character'] = GenerateQuads(gTextures['character'], 16, 20),
     ['slug'] = GenerateQuads(gTextures['slug'], 16, 16),
-    ['jump-blocks'] = GenerateQuads(gTextures['jump-blocks'], 17, 12)
+    ['jump-blocks'] = GenerateQuads(gTextures['jump-blocks'], 17, 12),
+    ['gems'] = GenerateQuads(gTextures['gems'], 16, 16),
+    ['keys-and-locks'] = GenerateQuads(gTextures['keys-and-locks'], 16, 16),
+    ['bushes'] = GenerateQuads(gTextures['bushes'], 16, 16),
+    ['flag-rod'] = GenerateQuads(gTextures['flag-rod'], 16, 16*4),
+    ['flags'] = GenerateQuads(gTextures['flags'], 16, 16)
 }
 
 gSounds = {
@@ -60,4 +68,11 @@ gSounds = {
     ['empty-block'] = love.audio.newSource('sounds/empty-block.wav', 'static'),
     ['kill'] = love.audio.newSource('sounds/kill.wav', 'static'),
     ['kill2'] = love.audio.newSource('sounds/kill2.wav', 'static')
+}
+
+gFonts = {
+    ['small'] = love.graphics.newFont('fonts/font.ttf', 8),
+    ['medium'] = love.graphics.newFont('fonts/font.ttf', 16),
+    ['large'] = love.graphics.newFont('fonts/font.ttf', 32),
+    ['title'] = love.graphics.newFont('fonts/ArcadeAlternate.ttf', 32)
 }
