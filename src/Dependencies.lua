@@ -51,7 +51,7 @@ gFrames = {
     ['toppers'] = GenerateQuads(gTextures['toppers'], TILE_SIZE, TILE_SIZE),
     ['character'] = GenerateQuads(gTextures['character'], 16, 20),
     ['slug'] = GenerateQuads(gTextures['slug'], 16, 16),
-    ['jump-blocks'] = GenerateQuads(gTextures['jump-blocks'], 17, 12),
+    ['jump-blocks'] = GenerateQuads(gTextures['jump-blocks'], 16, 16),
     ['gems'] = GenerateQuads(gTextures['gems'], 16, 16),
     ['keys-and-locks'] = GenerateQuads(gTextures['keys-and-locks'], 16, 16),
     ['bushes'] = GenerateQuads(gTextures['bushes'], 16, 16),
@@ -74,5 +74,5 @@ gFonts = {
     ['small'] = love.graphics.newFont('fonts/font.ttf', 8),
     ['medium'] = love.graphics.newFont('fonts/font.ttf', 16),
     ['large'] = love.graphics.newFont('fonts/font.ttf', 32),
-    ['title'] = love.graphics.newFont('fonts/ArcadeAlternate.ttf', 32)
+    ['title'] = love.graphics.newFont('fonts/ArcadeAlternate.ttf', 25)
 }
